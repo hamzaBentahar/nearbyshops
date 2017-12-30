@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Shop;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ShopController extends Controller
 {
@@ -16,6 +17,7 @@ class ShopController extends Controller
    */
   public function __construct(Shop $shop)
   {
+    $this->middleware('auth', ['only' => ['like']]);
     $this->shop = $shop;
   }
 
@@ -36,6 +38,11 @@ class ShopController extends Controller
     return response()->json($shops);
   }
 
+  public function like(Request $request){
+    $user = Auth::user();
+    $user->shops()->toggle([$request->id => ['like' => true]]);
+    return response()->json($request);
+  }
   /**
    * Compute the radian
    * @param $x

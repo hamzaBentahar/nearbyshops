@@ -20,3 +20,4 @@ Route::get('/nearby', 'ShopController@index')->name('nearby');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/like', 'ShopController@like');

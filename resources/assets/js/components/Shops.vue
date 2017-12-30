@@ -5,7 +5,7 @@
                 <p>Waiting</p>
             </div>
             <div v-for="shop in shops" class="col-md-2 col-sm-3 col-xs-6" v-else>
-                <shop :picture="shop.picture" :name="shop.name" :id="shop.id"></shop>
+                <shop :picture="shop.picture" :name="shop.name" :id="shop.id" :info="shop"></shop>
             </div>
         </div>
     </div>
