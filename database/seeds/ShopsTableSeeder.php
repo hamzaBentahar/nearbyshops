@@ -18,8 +18,8 @@ class ShopsTableSeeder extends Seeder
       $shopsObj->name = $shop->name;
       $shopsObj->email = $shop->email;
       $shopsObj->city = $shop->city;
-      $shopsObj->latitude = $shop->location->coordinates[0];
-      $shopsObj->longitude = $shop->location->coordinates[1];
+      $shopsObj->longitude = $shop->location->coordinates[0];
+      $shopsObj->latitude = $shop->location->coordinates[1];
       $shopsObj->save();
     }
   }

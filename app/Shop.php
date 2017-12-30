@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Shop extends Model
 {
@@ -10,5 +11,10 @@ class Shop extends Model
 
     public function users(){
       return $this->belongsToMany(User::class)->withPivot('like')->withTimestamps();
+    }
+
+    public function getList(){
+      return DB::table('shops')
+        ->get();
     }
 }
