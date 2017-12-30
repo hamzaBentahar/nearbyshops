@@ -15,9 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/nearby', 'ShopController@index')->name('nearby');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/preferred', 'ShopController@preferred')->name('preferred');
+Route::get('/preferredData', 'ShopController@preferredData');
+Route::get('/nearby', 'ShopController@index');
 Route::post('/like', 'ShopController@like');

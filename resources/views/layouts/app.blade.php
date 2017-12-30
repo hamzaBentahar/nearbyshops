@@ -34,7 +34,7 @@
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
-                            <li><a href="">My prefered shops</a></li>
+                            <li><a href="{{ route('preferred') }}">My prefered shops</a></li>
                             <li>
                                 <a href="{{ route('logout') }}"
                                    onclick="event.preventDefault();

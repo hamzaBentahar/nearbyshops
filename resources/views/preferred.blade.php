@@ -4,10 +4,10 @@
     <div class="container-fluid">
         <panel>
             <template slot="title">
-                Nearby shops
+                Preferred shops
             </template>
             <template slot="body">
-                <shops url="/nearby"></shops>
+                <shops url="/preferredData"></shops>
             </template>
         </panel>
     </div>

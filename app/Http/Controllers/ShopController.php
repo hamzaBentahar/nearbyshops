@@ -17,7 +17,7 @@ class ShopController extends Controller
    */
   public function __construct(Shop $shop)
   {
-    $this->middleware('auth', ['only' => ['like']]);
+    $this->middleware('auth', ['only' => ['like', 'preferred']]);
     $this->shop = $shop;
   }
 
@@ -30,11 +30,7 @@ class ShopController extends Controller
    */
   public function index(Request $request)
   {
-    $shops = $this->shop->getList();
-    // Add the distance between the shop and the user for every shop
-    $shops->map(function ($shop) use ($request) {
-      $shop->distance = $this->distance(['lat' => $request->latitude, 'long' => $request->longitude], ['lat' => $shop->latitude, 'long' => $shop->longitude]);
-    });
+    $shops = $this->shop->getList($request->latitude, $request->longitude);
     return response()->json($shops);
   }
 
@@ -42,6 +38,15 @@ class ShopController extends Controller
     $user = Auth::user();
     $user->shops()->toggle([$request->id => ['like' => true]]);
     return response()->json($request);
+  }
+
+  public function preferred(){
+    return view('preferred');
+  }
+
+  public function preferredData(Request $request){
+    $shops = $this->shop->getList($request->latitude, $request->longitude, true);
+    return response()->json($shops);
   }
   /**
    * Compute the radian

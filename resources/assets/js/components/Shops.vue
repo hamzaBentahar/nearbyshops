@@ -19,6 +19,12 @@
     components: {
       Shop
     },
+    props: {
+      url: {
+        required: true,
+        type: String
+      }
+    },
     data() {
       return {
         shops: null
@@ -33,7 +39,7 @@
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(position => {
             // Send an ajax request with the user's latitude and longitude
-            axios.get('/nearby?latitude=' + position.coords.latitude + '&longitude=' + position.coords.longitude)
+            axios.get(this.url+'?latitude=' + position.coords.latitude + '&longitude=' + position.coords.longitude)
               .then(data => {
                 var infos = data.data
                 infos = Object.keys(infos).map(key => {

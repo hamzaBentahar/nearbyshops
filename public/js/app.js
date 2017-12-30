@@ -13314,7 +13314,7 @@ exports = module.exports = __webpack_require__(44)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -13602,6 +13602,12 @@ Vue.component('shop', __WEBPACK_IMPORTED_MODULE_0__Shop___default.a);
   components: {
     Shop: __WEBPACK_IMPORTED_MODULE_0__Shop___default.a
   },
+  props: {
+    url: {
+      required: true,
+      type: String
+    }
+  },
   data: function data() {
     return {
       shops: null
@@ -13619,7 +13625,7 @@ Vue.component('shop', __WEBPACK_IMPORTED_MODULE_0__Shop___default.a);
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
           // Send an ajax request with the user's latitude and longitude
-          axios.get('/nearby?latitude=' + position.coords.latitude + '&longitude=' + position.coords.longitude).then(function (data) {
+          axios.get(_this.url + '?latitude=' + position.coords.latitude + '&longitude=' + position.coords.longitude).then(function (data) {
             var infos = data.data;
             infos = Object.keys(infos).map(function (key) {
               return infos[key];

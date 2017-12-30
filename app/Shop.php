@@ -15,16 +15,28 @@ class Shop extends Model
     return $this->belongsToMany(User::class)->withPivot('like')->withTimestamps();
   }
 
-  public function getList()
+  public function getList($latitude, $longitude, $displayOnlyLikes = false)
   {
     $shops = DB::table('shops')->get();
-    $shops = $shops->filter(function ($shop) {
+    $shops = $shops->filter(function ($shop) use ($latitude, $longitude, $displayOnlyLikes) {
       $like = $this->getLike($shop->id);
       $shop->like = isset($like->like) ? $like->like : null;
-      if($shop->like){
-        return $like->like != 1;
+      // Add the distance between the shop and the user for every shop
+      $shop->distance = $this->distance(
+        ['lat' => $latitude, 'long' => $longitude],
+        ['lat' => $shop->latitude, 'long' => $shop->longitude]
+      );
+      if ($displayOnlyLikes == true){
+        if($shop->like){
+          return $like->like == 1;
+        }
+      }else{
+        if($shop->like){
+          return $like->like != 1;
+        }else{
+          return true;
+        }
       }
-      return true;
     });
     return $shops;
   }
@@ -35,5 +47,31 @@ class Shop extends Model
       ->where('shop_id', $id)
       ->where('user_id', Auth::id())
       ->first();
+  }
+
+  /**
+   * Compute the radian
+   * @param $x
+   * @return float|int
+   */
+  protected function radian($x)
+  {
+    return $x * pi() / 180;
+  }
+
+  /**
+   * Formula to compute the distance between 2 points
+   * @param $p1
+   * @param $p2
+   * @return float|int
+   */
+  protected function distance($p1, $p2)
+  {
+    $earthRadius = 6378137;
+    $dLat = $this->radian($p2['lat'] - $p1['lat']);
+    $dLong = $this->radian($p2['long'] - $p1['long']);
+    $dist = sin($dLat / 2) * sin($dLat / 2) + cos($this->radian($p1['lat'])) * cos($this->radian($p2['lat'])) * sin($dLong / 2) * sin($dLong / 2);
+    $dist = 2 * atan2(sqrt($dist), sqrt(1 - $dist));
+    return $earthRadius * $dist * 0.001;
   }
 }
