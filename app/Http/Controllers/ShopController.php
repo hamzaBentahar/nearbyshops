@@ -17,7 +17,7 @@ class ShopController extends Controller
    */
   public function __construct(Shop $shop)
   {
-    $this->middleware('auth', ['only' => ['like', 'preferred', 'preferredData']]);
+    $this->middleware('auth', ['only' => ['like', 'preferred', 'preferredData', 'dislike']]);
     $this->shop = $shop;
   }
 
@@ -37,7 +37,13 @@ class ShopController extends Controller
   public function like(Request $request){
     $user = Auth::user();
     $user->shops()->toggle([$request->id => ['like' => true]]);
-    return response()->json($request);
+    return response()->json(true);
+  }
+
+  public function dislike(Request $request){
+    $user = Auth::user();
+    $user->shops()->toggle([$request->id => ['like' => false]]);
+    return response()->json(true);
   }
 
   public function preferred(){

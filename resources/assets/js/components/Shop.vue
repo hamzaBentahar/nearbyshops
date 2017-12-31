@@ -10,7 +10,7 @@
                             <a href="#" class="btn btn-danger" role="button" @click.prevent="like">Remove</a>
                         </p>
                         <p v-else>
-                            <a href="#" class="btn btn-danger" role="button">Dislike</a>
+                            <a href="#" class="btn btn-danger" role="button" @click.prevent="dislike">Dislike</a>
                             <a href="#" class="btn btn-success" role="button" @click.prevent="like">Like</a>
                         </p>
                     </div>
@@ -35,6 +35,19 @@
           id: this.info.id
         }).then(() => {
           this.info.like = this.info.like === 1 ? 0 : 1;
+        }).catch(() => {
+          this.$toasted.show("You don't have the authorization to like this post. Unauthenticated", {
+            theme: "bubble",
+            position: "top-right",
+            duration : 5000
+          });
+        })
+      },
+      dislike(){
+        axios.post('/dislike', {
+          id: this.info.id
+        }).then(() => {
+          // this.info.like = this.info.like === 1 ? 0 : 1;
         }).catch(() => {
           this.$toasted.show("You don't have the authorization to like this post. Unauthenticated", {
             theme: "bubble",

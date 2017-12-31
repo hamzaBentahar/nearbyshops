@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -27,12 +28,15 @@ class Shop extends Model
         ['lat' => $shop->latitude, 'long' => $shop->longitude]
       );
       if ($displayOnlyLikes == true){
+        // Display only the liked shops
         if($shop->like){
           return $like->like == 1;
         }
       }else{
-        if($shop->like){
-          return $like->like != 1;
+        // Display all the shops except the liked ones and the disliked ones for 2 hours
+        if(!is_null($shop->like)){
+          $diffInHours = Carbon::now()->diffInHours(Carbon::createFromFormat('Y-m-d H:i:s', $like->created_at));
+          return !($like->like == 1 or ($like->like == 0 and $diffInHours < 2));
         }else{
           return true;
         }

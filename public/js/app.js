@@ -13712,7 +13712,7 @@ exports = module.exports = __webpack_require__(10)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -13769,6 +13769,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           duration: 5000
         });
       });
+    },
+    dislike: function dislike() {
+      var _this2 = this;
+
+      axios.post('/dislike', {
+        id: this.info.id
+      }).then(function () {
+        // this.info.like = this.info.like === 1 ? 0 : 1;
+      }).catch(function () {
+        _this2.$toasted.show("You don't have the authorization to like this post. Unauthenticated", {
+          theme: "bubble",
+          position: "top-right",
+          duration: 5000
+        });
+      });
     }
   },
   computed: {
@@ -13817,7 +13832,13 @@ var render = function() {
                     "a",
                     {
                       staticClass: "btn btn-danger",
-                      attrs: { href: "#", role: "button" }
+                      attrs: { href: "#", role: "button" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.dislike($event)
+                        }
+                      }
                     },
                     [_vm._v("Dislike")]
                   ),
