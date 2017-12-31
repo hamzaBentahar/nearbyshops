@@ -36,7 +36,7 @@
         }).then(() => {
           this.info.like = this.info.like === 1 ? 0 : 1;
         }).catch(() => {
-          this.$toasted.show("You don't have the authorization to like this post. Unauthenticated", {
+          this.$toasted.show("Unauthenticated: You don't have the authorization to like this post.", {
             theme: "bubble",
             position: "top-right",
             duration : 5000
@@ -47,9 +47,9 @@
         axios.post('/dislike', {
           id: this.info.id
         }).then(() => {
-          // this.info.like = this.info.like === 1 ? 0 : 1;
+          this.info.like = this.info.like === 1 ? 0 : 1;
         }).catch(() => {
-          this.$toasted.show("You don't have the authorization to like this post. Unauthenticated", {
+          this.$toasted.show("Unauthenticated: You don't have the authorization to dislike this post.", {
             theme: "bubble",
             position: "top-right",
             duration : 5000

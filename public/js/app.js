@@ -13520,7 +13520,7 @@ exports = module.exports = __webpack_require__(10)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -13595,7 +13595,8 @@ Vue.component('shop', __WEBPACK_IMPORTED_MODULE_0__Shop___default.a);
   },
   data: function data() {
     return {
-      shops: null
+      shops: null,
+      error: "Waiting"
     };
   },
   mounted: function mounted() {
@@ -13607,6 +13608,7 @@ Vue.component('shop', __WEBPACK_IMPORTED_MODULE_0__Shop___default.a);
     userLocation: function userLocation() {
       var _this = this;
 
+      console.log('coucou');
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
           // Send an ajax request with the user's latitude and longitude
@@ -13620,7 +13622,25 @@ Vue.component('shop', __WEBPACK_IMPORTED_MODULE_0__Shop___default.a);
             });
             _this.shops = infos;
           });
-        });
+        }, this.showError);
+      } else {
+        this.error = "Geolocation is not supported by this browser";
+      }
+    },
+    showError: function showError(error) {
+      switch (error.code) {
+        case error.PERMISSION_DENIED:
+          this.error = 'The request for geolocation was denied.';
+          break;
+        case error.POSITION_UNAVAILABLE:
+          this.error = "Location information is unavailable.";
+          break;
+        case error.TIMEOUT:
+          this.error = "The request to get the location timed out.";
+          break;
+        case error.UNKNOWN_ERROR:
+          this.error = "An unknown error occurred.";
+          break;
       }
     }
   }
@@ -13763,7 +13783,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }).then(function () {
         _this.info.like = _this.info.like === 1 ? 0 : 1;
       }).catch(function () {
-        _this.$toasted.show("You don't have the authorization to like this post. Unauthenticated", {
+        _this.$toasted.show("Unauthenticated: You don't have the authorization to like this post.", {
           theme: "bubble",
           position: "top-right",
           duration: 5000
@@ -13776,9 +13796,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       axios.post('/dislike', {
         id: this.info.id
       }).then(function () {
-        // this.info.like = this.info.like === 1 ? 0 : 1;
+        _this2.info.like = _this2.info.like === 1 ? 0 : 1;
       }).catch(function () {
-        _this2.$toasted.show("You don't have the authorization to like this post. Unauthenticated", {
+        _this2.$toasted.show("Unauthenticated: You don't have the authorization to dislike this post.", {
           theme: "bubble",
           position: "top-right",
           duration: 5000
@@ -13888,7 +13908,7 @@ var render = function() {
       { staticClass: "col-md-12" },
       [
         !_vm.shops
-          ? _c("div", [_c("p", [_vm._v("Waiting")])])
+          ? _c("div", [_c("p", { domProps: { innerHTML: _vm._s(_vm.error) } })])
           : _vm._l(_vm.shops, function(shop) {
               return _c(
                 "div",
