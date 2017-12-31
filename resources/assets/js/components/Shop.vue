@@ -7,7 +7,7 @@
                     <div class="caption">
                         <h3 v-text="info.name"></h3>
                         <p v-if="buttons">
-                            <a href="#" class="btn btn-danger" role="button">Remove</a>
+                            <a href="#" class="btn btn-danger" role="button" @click.prevent="like">Remove</a>
                         </p>
                         <p v-else>
                             <a href="#" class="btn btn-danger" role="button">Dislike</a>
@@ -34,7 +34,7 @@
         axios.post('/like', {
           id: this.info.id
         }).then(() => {
-          this.info.like = 1
+          this.info.like = this.info.like === 1 ? 0 : 1;
         }).catch(() => {
           this.$toasted.show("You don't have the authorization to like this post. Unauthenticated", {
             theme: "bubble",
