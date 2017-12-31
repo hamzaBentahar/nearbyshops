@@ -35,7 +35,7 @@ class Shop extends Model
       }else{
         // Display all the shops except the liked ones and the disliked ones for 2 hours
         if(!is_null($shop->like)){
-          $diffInHours = Carbon::now()->diffInHours(Carbon::createFromFormat('Y-m-d H:i:s', $like->created_at));
+          $diffInHours = Carbon::now()->diffInHours(Carbon::createFromFormat('Y-m-d H:i:s', $like->updated_at));
           return !($like->like == 1 or ($like->like == 0 and $diffInHours < 2));
         }else{
           return true;

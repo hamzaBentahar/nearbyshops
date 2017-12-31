@@ -42,7 +42,9 @@ class ShopController extends Controller
 
   public function dislike(Request $request){
     $user = Auth::user();
-    $user->shops()->toggle([$request->id => ['like' => false]]);
+    if(!$user->shops()->updateExistingPivot($request->id, ['like' => false])){
+      $user->shops()->toggle([$request->id => ['like' => false]]);
+    }
     return response()->json(true);
   }
 
