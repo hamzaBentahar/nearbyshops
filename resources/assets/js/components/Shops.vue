@@ -37,7 +37,6 @@
     methods: {
       // Use the HTML geolocation API to get the current position of the user
       userLocation() {
-        console.log('coucou')
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(position => {
             // Send an ajax request with the user's latitude and longitude
