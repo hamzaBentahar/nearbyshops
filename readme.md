@@ -76,8 +76,13 @@ Implement an app that list shops nearby
 ##### 3. Js files are located under resources > assets > js
 ##### 4. Compile 
 1. In development mode:
-    npm run dev
+    
+        npm run dev
+
 2. In production mode:
-    npm run production
+    
+        npm run production
+
 3. In watch mode (detect changes automatically):
-    npm run watch
+    
+        npm run watch
