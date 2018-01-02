@@ -61,4 +61,23 @@ Implement an app that list shops nearby
 
     php artisan serve
     
-##### 10. Access the application in the browser with the give url
+##### 10. Access the application in the browser with the given url
+
+## Making changes in the javascript
+
+##### 1. Check that npm and nodejs installed
+    node -v
+    npm -v
+
+##### 2. Download and install node assets
+    
+    npm install
+
+##### 3. Js files are located under resources > assets > js
+##### 4. Compile 
+1. In development mode:
+    npm run dev
+2. In production mode:
+    npm run production
+3. In watch mode (detect changes automatically):
+    npm run watch
