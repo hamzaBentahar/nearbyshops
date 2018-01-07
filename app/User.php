@@ -27,7 +27,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function shops(){
+  /**
+   * Create a many to many relationship with Shop
+   * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+   */
+  public function shops(){
       return $this->belongsToMany(Shop::class)->withPivot('like')->withTimestamps();
     }
 }
